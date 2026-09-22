@@ -1,4 +1,4 @@
-# Fieldmate — Field Service SaaS for Niche Home Service Businesses
+# Repairmate — Field Service SaaS for Niche Home Service Businesses
 
 This project is designed around a practical idea: build a field-service platform for a specific service niche instead of trying to compete with large generic platforms like Jobber or Housecall Pro.
 
@@ -14,7 +14,7 @@ This repo is already structured to support that direction:
 
 ## 1. Product vision
 
-Fieldmate is not a broad “all-in-one business management suite.”
+Repairmate is not a broad “all-in-one business management suite.”
 
 It is a focused field service system built for businesses that:
 
@@ -77,7 +77,7 @@ Ideal customer profile:
 
 ## 4. Core product idea
 
-Fieldmate should be a hybrid system with two main experiences:
+Repairmate should be a hybrid system with two main experiences:
 
 ### A. Customer-facing booking website
 
@@ -456,7 +456,7 @@ The project is aligned with the best path for this business idea:
 
 ## 15. Final positioning statement
 
-Fieldmate is a niche field service platform for service businesses that need a practical system for booking, job management, tracking, and invoicing without the complexity of enterprise software.
+Repairmate is a niche field service platform for service businesses that need a practical system for booking, job management, tracking, and invoicing without the complexity of enterprise software.
 
 It is not meant to be a massive generic platform. It is meant to be the simplest, most relevant tool for a specific trade and a practical route to recurring revenue.
 
@@ -482,7 +482,7 @@ This is stronger than building a broad “Housecall Pro clone” without a real 
 
 A strong fit for this product is:
 
-- Fieldmate
+- Repairmate
 
 This name is simple, memorable, clear, and not restricted to solo businesses. It works for a small one-person operator or a growing multi-tech business.
 

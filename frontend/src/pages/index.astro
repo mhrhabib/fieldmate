@@ -1,58 +1,204 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Navbar from "../components/Navbar.astro";
-import Hero from "../components/Hero.astro";
-import Problem from "../components/Problem.astro";
-import DashboardPreview from "../components/DashboardPreview.astro";
-import JobManagement from "../components/JobManagement.astro";
-import QuotesInvoices from "../components/QuotesInvoices.astro";
-import MobilePreview from "../components/MobilePreview.astro";
-import WatchPreview from "../components/WatchPreview.astro";
-import MultiDevice from "../components/MultiDevice.astro";
-import Features from "../components/Features.astro";
-import Offline from "../components/Offline.astro";
-import Technology from "../components/Technology.astro";
-import HowItWorks from "../components/HowItWorks.astro";
-import CTA from "../components/CTA.astro";
-import Footer from "../components/Footer.astro";
 
-// Runs on the SERVER at build time (or per-request if you switch this page to
-// SSR later) — never ships to the browser. This is how you pull live data
-// from FastAPI into HTML that search engines see immediately, with zero
-// client-side loading spinner.
-let waitlistCount = 0;
-try {
-  const res = await fetch(`${import.meta.env.PUBLIC_API_URL}/api/stats`);
-  if (res.ok) {
-    const data = await res.json();
-    waitlistCount = data.waitlist_count;
-  }
-} catch {
-  // Backend not running at build time — fall back gracefully rather than
-  // failing the whole build.
-}
+const services = [
+  { title: "Appliance Repair", text: "Track brand, model, serial, symptoms, warranty notes, and waiting-on-part status." },
+  { title: "Pet Grooming", text: "Keep recurring bookings, pet profiles, grooming notes, and reminders in one place." },
+  { title: "Home Services", text: "Manage jobs, invoices, customer follow-ups, and scheduling without spreadsheets." },
+];
+
+const features = [
+  "Customer booking and service intake",
+  "Job tracking from scheduled to paid",
+  "Waiting on part status workflow",
+  "Mobile-first technician experience",
+  "Recurring jobs and reminders",
+  "Invoice and payment follow-up",
+];
 ---
 
 <Layout
-  title="SiteMate — One business. One workspace. Every device."
-  description="SiteMate keeps customers, jobs, quotes, invoices, expenses, and field work connected across iPhone, iPad, Mac, and Apple Watch."
+  title="Repairmate | Field service software for service businesses"
+  description="Repairmate helps appliance repair, pet grooming, and home service teams manage bookings, jobs, scheduling, invoicing, and customer follow-up in one place."
 >
-  <Navbar />
+  <header class="container" style="padding: 24px 0 12px;">
+    <nav style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+      <div style="display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.25rem;">
+        <span style="display: inline-flex; width: 36px; height: 36px; border-radius: 12px; background: linear-gradient(135deg, #2563eb, #7c3aed); color: white; align-items: center; justify-content: center;">R</span>
+        Repairmate
+      </div>
+      <div style="display: flex; align-items: center; gap: 24px; font-size: 0.95rem; color: #475569; flex-wrap: wrap;">
+        <a href="#features">Features</a>
+        <a href="#industries">Industries</a>
+        <a href="#pricing">Pricing</a>
+        <a href="/booking">Book demo</a>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+        <a href="/booking" class="btn btn-secondary">Book demo</a>
+        <a href="/pricing" class="btn btn-primary">Start free</a>
+      </div>
+    </nav>
+  </header>
+
   <main>
-    <Hero />
-    <Problem />
-    <DashboardPreview />
-    <JobManagement />
-    <QuotesInvoices />
-    <MobilePreview />
-    <WatchPreview />
-    <MultiDevice />
-    <Features />
-    <Offline />
-    <Technology />
-    <HowItWorks />
-    <CTA waitlistCount={waitlistCount} />
+    <section class="container" style="padding: 52px 0 20px;">
+      <div class="grid-2" style="align-items: center; min-height: 520px;">
+        <div>
+          <span class="badge">Field service software</span>
+          <h1 style="font-size: clamp(2.6rem, 5vw, 5rem); line-height: 1.05; letter-spacing: -0.05em; margin: 18px 0 20px; max-width: 620px;">
+            Run every repair job from booking to payment.
+          </h1>
+          <p style="font-size: 1.2rem; color: var(--muted); max-width: 560px; margin-bottom: 28px;">
+            Repairmate helps appliance repair, pet grooming, and local service teams organize jobs, reminders, invoices, and technician follow-ups in one simple workflow.
+          </p>
+          <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 28px;">
+            <a href="/booking" class="btn btn-primary">Book a demo</a>
+            <a href="#features" class="btn btn-secondary">See features</a>
+          </div>
+          <div style="display: flex; gap: 30px; flex-wrap: wrap; color: var(--muted); font-weight: 600;">
+            <div><strong style="display: block; font-size: 1.5rem; color: var(--text);">2 min</strong> setup</div>
+            <div><strong style="display: block; font-size: 1.5rem; color: var(--text);">24/7</strong> job tracking</div>
+            <div><strong style="display: block; font-size: 1.5rem; color: var(--text);">1 app</strong> for the team</div>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 22px; background: linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);">
+          <div style="padding: 18px; border-radius: 20px; background: #0f172a; color: white; box-shadow: var(--shadow);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+              <div>
+                <div style="font-size: 0.75rem; color: #93c5fd; text-transform: uppercase; letter-spacing: 0.08em;">Today</div>
+                <div style="font-size: 1.5rem; font-weight: 800;">12 jobs</div>
+              </div>
+              <div style="background: rgba(34,197,94,0.12); color: #86efac; border-radius: 10px; padding: 8px 10px; font-size: 0.76rem; font-weight: 700;">
+                +18% this week
+              </div>
+            </div>
+
+            <div style="display: grid; gap: 12px;">
+              <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 12px 14px;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.82rem; color: #cbd5e1;">
+                  <span>Washer repair</span>
+                  <span>Scheduled</span>
+                </div>
+                <div style="margin-top: 8px; font-weight: 700;">4:30 PM • 27 Oak St</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 12px 14px;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.82rem; color: #cbd5e1;">
+                  <span>Fridge service</span>
+                  <span>Waiting on part</span>
+                </div>
+                <div style="margin-top: 8px; font-weight: 700;">Part ETA: Thu 2:00 PM</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 12px 14px;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.82rem; color: #cbd5e1;">
+                  <span>Pet grooming</span>
+                  <span>Paid</span>
+                </div>
+                <div style="margin-top: 8px; font-weight: 700;">$126.00 • invoiced today</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <div class="container">
+        <div style="text-align: center; margin-bottom: 40px;">
+          <span class="badge">Why Repairmate</span>
+          <h2 style="font-size: clamp(2rem, 4vw, 3rem); margin: 16px 0 12px; letter-spacing: -0.04em;">The workflow your team actually needs.</h2>
+        </div>
+        <div class="grid-3">
+          {features.map((item) => (
+            <article class="card" style="padding: 24px;">
+              <div style="font-size: 2rem; margin-bottom: 12px;">✓</div>
+              <h3 style="margin: 0 0 10px; font-size: 1.25rem;">{item}</h3>
+              <p style="margin: 0; color: var(--muted);">
+                Built for real service businesses that need speed, clarity, and fewer manual follow-ups.
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="industries" class="section" style="background: rgba(37, 99, 235, 0.03);">
+      <div class="container">
+        <div style="text-align: center; margin-bottom: 40px;">
+          <span class="badge">Perfect for niche trades</span>
+          <h2 style="font-size: clamp(2rem, 4vw, 3rem); margin: 16px 0 12px; letter-spacing: -0.04em;">Built for the work that generic tools ignore.</h2>
+        </div>
+        <div class="grid-3">
+          {services.map((service) => (
+            <article class="card" style="padding: 24px;">
+              <div style="font-weight: 800; font-size: 1.1rem; margin-bottom: 10px;">{service.title}</div>
+              <p style="margin: 0; color: var(--muted);">{service.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section">
+      <div class="container">
+        <div style="text-align: center; margin-bottom: 40px;">
+          <span class="badge">Simple pricing</span>
+          <h2 style="font-size: clamp(2rem, 4vw, 3rem); margin: 16px 0 12px; letter-spacing: -0.04em;">Start lean. Grow when you need to.</h2>
+        </div>
+        <div class="grid-3">
+          <article class="card" style="padding: 28px;">
+            <div style="font-size: 0.9rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em;">Starter</div>
+            <div style="font-size: 2.6rem; font-weight: 800; margin: 18px 0;">$29<span style="font-size: 1rem; color: var(--muted);">/mo</span></div>
+            <ul style="list-style: none; padding: 0; margin: 0 0 22px; color: var(--muted); line-height: 2;">
+              <li>• 1 team</li>
+              <li>• Job tracking</li>
+              <li>• Quotes and invoices</li>
+            </ul>
+            <a href="/booking" class="btn btn-secondary" style="width: 100%;">Choose starter</a>
+          </article>
+
+          <article class="card" style="padding: 28px; background: linear-gradient(135deg, #eff6ff, #f5f3ff); border-color: rgba(124, 58, 237, 0.15);">
+            <div style="font-size: 0.9rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em;">Growth</div>
+            <div style="font-size: 2.6rem; font-weight: 800; margin: 18px 0;">$79<span style="font-size: 1rem; color: var(--muted);">/mo</span></div>
+            <ul style="list-style: none; padding: 0; margin: 0 0 22px; color: var(--muted); line-height: 2;">
+              <li>• Multiple techs</li>
+              <li>• Scheduling tools</li>
+              <li>• Customer follow-up</li>
+            </ul>
+            <a href="/booking" class="btn btn-primary" style="width: 100%;">Choose growth</a>
+          </article>
+
+          <article class="card" style="padding: 28px;">
+            <div style="font-size: 0.9rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em;">Custom</div>
+            <div style="font-size: 2.6rem; font-weight: 800; margin: 18px 0;">Tailored</div>
+            <ul style="list-style: none; padding: 0; margin: 0 0 22px; color: var(--muted); line-height: 2;">
+              <li>• Custom workflows</li>
+              <li>• Team onboarding</li>
+              <li>• Priority support</li>
+            </ul>
+            <a href="/booking" class="btn btn-secondary" style="width: 100%;">Talk to sales</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container" style="padding: 28px; border-radius: 28px; background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 50%, #7c3aed 100%); color: white; box-shadow: var(--shadow);">
+        <div class="grid-2" style="align-items: center;">
+          <div>
+            <span class="badge" style="background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.18); color: white;">Ready to run cleaner?</span>
+            <h2 style="font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; margin: 18px 0 10px; letter-spacing: -0.04em;">Make your service business easier to run.</h2>
+            <p style="margin: 0; color: rgba(255,255,255,0.82); max-width: 560px;">
+              Replace scattered notes and spreadsheets with a tool built for the real operational flow of your team.
+            </p>
+          </div>
+          <div style="display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 14px;">
+            <a href="/booking" class="btn btn-primary" style="background: white; color: #0f172a; box-shadow: none;">Book a demo</a>
+            <a href="/pricing" class="btn btn-secondary" style="background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); color: white;">View pricing</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
-  <Footer />
 </Layout>
 

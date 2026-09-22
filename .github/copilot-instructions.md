@@ -1,4 +1,4 @@
-# Copilot Instructions for Fieldmate
+# Copilot Instructions for Repairmate
 
 ## Project intent
 This repository is for a niche field-service SaaS product focused on real-world service workflows and operational efficiency. The product is not meant to be a generic ERP clone.

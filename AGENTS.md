@@ -1,4 +1,4 @@
-# Fieldmate Agent Rules
+# Repairmate Agent Rules
 
 ## Mission
 Build a niche field-service SaaS for service businesses with a strong focus on practical workflow, not generic enterprise bloat.

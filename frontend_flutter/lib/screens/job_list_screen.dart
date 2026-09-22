@@ -1,103 +1,98 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../core/api_client.dart';
+import '../bloc/job_list/job_list_cubit.dart';
 import '../models/models.dart';
 import '../widgets/status_chip.dart';
 import 'job_detail_screen.dart';
 import 'new_job_screen.dart';
 
-class JobListScreen extends StatefulWidget {
-  final ApiClient api;
-  const JobListScreen({super.key, required this.api});
-
-  @override
-  State<JobListScreen> createState() => _JobListScreenState();
-}
-
-class _JobListScreenState extends State<JobListScreen> {
-  late Future<List<Job>> _future;
-  JobStatus? _filter;
-
-  @override
-  void initState() {
-    super.initState();
-    _load();
-  }
-
-  void _load() {
-    setState(() => _future = widget.api.listJobs(status: _filter));
-  }
+class JobListScreen extends StatelessWidget {
+  const JobListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Jobs'),
-        actions: [
-          IconButton(
-            tooltip: 'Show only jobs waiting on a part',
-            icon: Icon(
-              Icons.build,
-              color: _filter == JobStatus.waitingOnPart ? Colors.deepOrange : null,
-            ),
-            onPressed: () {
-              _filter = _filter == JobStatus.waitingOnPart ? null : JobStatus.waitingOnPart;
-              _load();
-            },
-          ),
-        ],
-      ),
-      body: RefreshIndicator(
-        onRefresh: () async => _load(),
-        child: FutureBuilder<List<Job>>(
-          future: _future,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (snapshot.hasError) {
-              return ListView(children: [
-                Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Text('Could not load jobs.\n${snapshot.error}\n\n'
-                      'Is the backend running at $apiBaseUrl?'),
+    return BlocBuilder<JobListCubit, JobListState>(
+      builder: (context, state) {
+        final cubit = context.read<JobListCubit>();
+
+        if (state is JobListInitial) {
+          cubit.load();
+        }
+
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Repairmate jobs'),
+            actions: [
+              IconButton(
+                tooltip: 'Toggle waiting on part',
+                onPressed: cubit.toggleWaitingOnPartFilter,
+                icon: Icon(
+                  Icons.pending_actions_outlined,
+                  color: state is JobListLoaded && state.filter == JobStatus.waitingOnPart
+                      ? Colors.orange
+                      : null,
                 ),
-              ]);
-            }
-            final jobs = snapshot.data ?? [];
-            if (jobs.isEmpty) {
-              return const Center(child: Text('No jobs yet. Tap + to add one.'));
-            }
-            return ListView.separated(
-              itemCount: jobs.length,
-              separatorBuilder: (_, __) => const Divider(height: 1),
-              itemBuilder: (context, i) {
-                final job = jobs[i];
-                return ListTile(
-                  title: Text('${job.applianceType} — ${job.brand ?? "Unknown brand"}'),
-                  subtitle: Text(job.symptom, maxLines: 1, overflow: TextOverflow.ellipsis),
-                  trailing: StatusChip(status: job.status),
-                  onTap: () async {
-                    await Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => JobDetailScreen(api: widget.api, jobId: job.id!),
-                    ));
-                    _load();
-                  },
-                );
-              },
-            );
+              ),
+            ],
+          ),
+          body: switch (state) {
+            JobListLoading() => const Center(child: CircularProgressIndicator()),
+            JobListFailure(:final message) => Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Text(message),
+                ),
+              ),
+            JobListLoaded(:final jobs) => jobs.isEmpty
+                ? const Center(child: Text('No jobs yet. Tap + to add one.'))
+                : RefreshIndicator(
+                    onRefresh: () async => cubit.load(filter: state.filter),
+                    child: Center(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 1080),
+                        child: ListView.separated(
+                          padding: const EdgeInsets.all(24),
+                          itemCount: jobs.length,
+                          separatorBuilder: (_, __) => const SizedBox(height: 12),
+                          itemBuilder: (context, index) {
+                            final job = jobs[index];
+                            return Card(
+                              elevation: 0,
+                              margin: EdgeInsets.zero,
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                                title: Text('${job.applianceType} • ${job.brand ?? 'Unknown brand'}'),
+                                subtitle: Text(job.symptom, maxLines: 2, overflow: TextOverflow.ellipsis),
+                                trailing: StatusChip(status: job.status),
+                                onTap: () async {
+                                  await Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (_) => JobDetailScreen(jobId: job.id!),
+                                    ),
+                                  );
+                                  cubit.load(filter: state.filter);
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+            _ => const Center(child: CircularProgressIndicator()),
           },
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await Navigator.of(context).push(MaterialPageRoute(
-            builder: (_) => NewJobScreen(api: widget.api),
-          ));
-          _load();
-        },
-        child: const Icon(Icons.add),
-      ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () async {
+              await Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const NewJobScreen()),
+              );
+              cubit.load(filter: state is JobListLoaded ? state.filter : null);
+            },
+            child: const Icon(Icons.add),
+          ),
+        );
+      },
     );
   }
 }
