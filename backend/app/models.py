@@ -43,6 +43,17 @@ class CustomerRead(CustomerBase):
 
 
 # ---------------------------------------------------------------------------
+# User — one account per shop owner/tech for now (see module docstring)
+# ---------------------------------------------------------------------------
+class UserAccount(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    name: str
+    email: str = Field(unique=True, index=True)
+    hashed_password: str
+    created_at: datetime = Field(default_factory=utcnow)
+
+
+# ---------------------------------------------------------------------------
 # Job — this is the piece generic FSM tools get wrong for appliance repair
 # ---------------------------------------------------------------------------
 class JobStatus(str, Enum):

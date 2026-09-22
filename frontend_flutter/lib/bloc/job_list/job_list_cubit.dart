@@ -27,4 +27,8 @@ class JobListCubit extends Cubit<JobListState> {
     final nextFilter = current == JobStatus.waitingOnPart ? null : JobStatus.waitingOnPart;
     await load(filter: nextFilter);
   }
+
+  Future<void> setFilter(JobStatus? filter) async {
+    await load(filter: filter);
+  }
 }
