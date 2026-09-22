@@ -32,3 +32,9 @@ env/
 !.vscode/extensions.json
 .DS_Store
 Thumbs.db
+
+
+# dart 
+.dart_tool/
+build/
+pubspec.lock
