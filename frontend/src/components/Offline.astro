@@ -1,0 +1,31 @@
+---
+const stages = ["Offline", "Local changes", "Connection restored", "Sync complete"];
+---
+
+<section class="border-y border-line bg-white py-20 sm:py-28">
+  <div class="mx-auto max-w-wrap px-6">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <h2 class="text-balance text-[1.9rem] font-semibold tracking-tight text-ink sm:text-[2.4rem]">
+        Work even when the signal doesn't.
+      </h2>
+      <p class="mt-4 text-[1.05rem] text-muted">
+        SiteMate is designed with field work in mind. Important information
+        can remain available when connectivity is limited, and synchronize
+        automatically once you're back online.
+      </p>
+    </div>
+
+    <div class="reveal reveal-delay-2 mx-auto mt-14 flex max-w-3xl flex-wrap items-center justify-center gap-2 sm:gap-1">
+      {stages.map((stage, i) => (
+        <div class="flex items-center gap-2 sm:gap-1">
+          <span class="rounded-full border border-line bg-surface px-4 py-2 text-[13px] font-medium text-ink">
+            {stage}
+          </span>
+          {i < stages.length - 1 && (
+            <svg class="text-line" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

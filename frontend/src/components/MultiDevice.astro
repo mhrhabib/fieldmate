@@ -1,0 +1,37 @@
+---
+const nodes = ["iPhone", "iPad", "Apple Watch"];
+---
+
+<section id="devices" class="border-y border-line bg-white py-20 sm:py-28">
+  <div class="mx-auto max-w-wrap px-6">
+    <div class="grid items-center gap-14 sm:grid-cols-2">
+      <div class="reveal flex justify-center">
+        <div class="flex flex-col items-center gap-3 text-center">
+          <div class="rounded-xl border border-line bg-surface px-5 py-2.5 text-[13px] font-semibold text-ink shadow-subtle">Mac</div>
+          <svg width="16" height="24" viewBox="0 0 16 24" class="text-line"><path d="M8 0v24M2 18l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <div class="rounded-xl border border-accent/30 bg-accent-soft px-5 py-2.5 text-[13px] font-semibold text-accent shadow-subtle">SiteMate Cloud</div>
+
+          <div class="mt-2 flex gap-6">
+            {nodes.map((node) => (
+              <div class="flex flex-col items-center gap-2">
+                <svg width="24" height="16" viewBox="0 0 24 16" class="text-line"><path d="M12 16V0M12 0l-4 4M12 0l4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+                <div class="rounded-lg border border-line bg-white px-3 py-1.5 text-[12px] font-medium text-ink shadow-subtle">{node}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <h2 class="text-balance text-[1.9rem] font-semibold tracking-tight text-ink sm:text-[2.2rem]">
+          Your data follows your work.
+        </h2>
+        <p class="mt-4 max-w-md text-[1.05rem] text-muted">
+          Start a job on your iPhone. Update it from your Apple Watch. Review
+          the details on your iPad. Finish the invoice from your Mac.
+          Everything stays connected.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,7 +1,20 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Nav from "../components/Nav.astro";
-import WaitlistForm from "../components/WaitlistForm.astro";
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/Hero.astro";
+import Problem from "../components/Problem.astro";
+import DashboardPreview from "../components/DashboardPreview.astro";
+import JobManagement from "../components/JobManagement.astro";
+import QuotesInvoices from "../components/QuotesInvoices.astro";
+import MobilePreview from "../components/MobilePreview.astro";
+import WatchPreview from "../components/WatchPreview.astro";
+import MultiDevice from "../components/MultiDevice.astro";
+import Features from "../components/Features.astro";
+import Offline from "../components/Offline.astro";
+import Technology from "../components/Technology.astro";
+import HowItWorks from "../components/HowItWorks.astro";
+import CTA from "../components/CTA.astro";
+import Footer from "../components/Footer.astro";
 
 // Runs on the SERVER at build time (or per-request if you switch this page to
 // SSR later) — never ships to the browser. This is how you pull live data
@@ -24,22 +37,22 @@ try {
   title="SiteMate — One business. One workspace. Every device."
   description="SiteMate keeps customers, jobs, quotes, invoices, expenses, and field work connected across iPhone, iPad, Mac, and Apple Watch."
 >
-  <Nav />
-
-  <main class="wrap" style="padding:64px 0">
-    <h1 style="font-size:clamp(2rem,5vw,3.2rem);max-width:16ch">
-      Run your field business from anywhere.
-    </h1>
-    <p style="color:var(--muted);max-width:52ch;font-size:1.05rem;margin-top:14px">
-      SiteMate keeps customers, jobs, quotes, invoices, expenses, and field
-      work connected across iPhone, iPad, Mac, and Apple Watch.
-    </p>
-
-    <p style="margin-top:28px;font-weight:600">
-      {waitlistCount} businesses already on the waitlist
-    </p>
-
-    <!-- This is the only part of the page that ships JavaScript. -->
-    <WaitlistForm />
+  <Navbar />
+  <main>
+    <Hero />
+    <Problem />
+    <DashboardPreview />
+    <JobManagement />
+    <QuotesInvoices />
+    <MobilePreview />
+    <WatchPreview />
+    <MultiDevice />
+    <Features />
+    <Offline />
+    <Technology />
+    <HowItWorks />
+    <CTA waitlistCount={waitlistCount} />
   </main>
+  <Footer />
 </Layout>
+

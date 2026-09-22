@@ -1,0 +1,30 @@
+---
+import WaitlistForm from "./WaitlistForm.astro";
+
+interface Props {
+  waitlistCount?: number;
+}
+const { waitlistCount = 0 } = Astro.props;
+---
+
+<section id="waitlist" class="border-t border-line bg-ink py-20 text-center sm:py-28">
+  <div class="mx-auto max-w-wrap px-6">
+    <h2 class="reveal text-balance text-[2rem] font-semibold leading-tight tracking-tight text-white sm:text-[2.6rem]">
+      Your work doesn't happen on one screen.<br />Neither should your software.
+    </h2>
+
+    <div class="reveal reveal-delay-1 mt-8 flex justify-center">
+      <WaitlistForm />
+    </div>
+
+    {waitlistCount > 0 && (
+      <p class="reveal reveal-delay-2 mt-4 text-[13px] text-white/50">
+        {waitlistCount} businesses already on the waitlist
+      </p>
+    )}
+
+    <a href="#product" class="reveal reveal-delay-2 mt-6 inline-block text-[14px] font-medium text-white/70 hover:text-white">
+      Explore SiteMate →
+    </a>
+  </div>
+</section>

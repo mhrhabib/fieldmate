@@ -1,0 +1,70 @@
+---
+const stages = ["Lead", "Scheduled", "In Progress", "Completed", "Invoiced", "Paid"];
+const photos = ["Before", "During", "After"];
+const actions = ["Start Job", "Add Note", "Add Expense", "Complete Job"];
+---
+
+<section id="job-lifecycle" class="border-y border-line bg-white py-20 sm:py-28">
+  <div class="mx-auto max-w-wrap px-6">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <h2 class="text-balance text-[1.9rem] font-semibold tracking-tight text-ink sm:text-[2.4rem]">
+        From the first call to the final invoice.
+      </h2>
+      <p class="mt-4 text-[1.05rem] text-muted">
+        Create a customer, schedule a job, capture photos and notes, create a
+        quote, complete the work, and send an invoice.
+      </p>
+    </div>
+
+    <!-- Lifecycle -->
+    <div class="reveal reveal-delay-1 mt-12 flex flex-wrap items-center justify-center gap-2 sm:gap-1">
+      {stages.map((stage, i) => (
+        <div class="flex items-center gap-2 sm:gap-1">
+          <span class="rounded-full border border-line bg-surface px-3.5 py-1.5 text-[13px] font-medium text-ink">
+            {stage}
+          </span>
+          {i < stages.length - 1 && (
+            <svg class="text-line" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <!-- Job details mockup -->
+    <div class="reveal reveal-delay-2 mx-auto mt-14 max-w-2xl overflow-hidden rounded-2xl border border-line bg-white shadow-card">
+      <div class="flex items-center justify-between border-b border-line px-5 py-3.5">
+        <div>
+          <p class="text-[11px] font-medium text-muted">Customer</p>
+          <p class="text-[14px] font-semibold text-ink">John Smith</p>
+        </div>
+        <span class="rounded-full bg-accent-soft px-3 py-1 text-[12px] font-semibold text-accent">In Progress</span>
+      </div>
+
+      <div class="px-5 py-4">
+        <p class="text-[15px] font-semibold text-ink">Kitchen Pipe Replacement</p>
+
+        <p class="mt-4 text-[11px] font-semibold text-muted">Photos</p>
+        <div class="mt-2 grid grid-cols-3 gap-2">
+          {photos.map((label) => (
+            <div class="flex h-16 items-center justify-center rounded-lg border border-dashed border-line bg-[#fbfbfc] text-[11px] font-medium text-muted">
+              {label}
+            </div>
+          ))}
+        </div>
+
+        <div class="mt-5 flex flex-wrap gap-2">
+          {actions.map((action, i) => (
+            <button
+              type="button"
+              class={i === 0
+                ? "rounded-lg bg-accent px-3.5 py-2 text-[12.5px] font-semibold text-white"
+                : "rounded-lg border border-line px-3.5 py-2 text-[12.5px] font-medium text-ink hover:bg-black/[.03]"}
+            >
+              {action}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

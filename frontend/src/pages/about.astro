@@ -1,20 +1,29 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Nav from "../components/Nav.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <Layout
   title="About SiteMate"
   description="SiteMate is a cross-device workspace for small field-service businesses, built with FastAPI, PostgreSQL, and Flutter."
 >
-  <Nav />
-  <main class="wrap" style="padding:64px 0">
-    <h1>About SiteMate</h1>
-    <p style="color:var(--muted);max-width:60ch;margin-top:12px">
+  <Navbar />
+  <main class="mx-auto max-w-wrap px-6 py-20 sm:py-28">
+    <h1 class="text-[2rem] font-semibold tracking-tight text-ink sm:text-[2.4rem]">
+      About SiteMate
+    </h1>
+    <p class="mt-4 max-w-2xl text-[1.05rem] text-muted">
       SiteMate is being built as a learning-driven, production-minded project
       exploring modern cross-platform development, native mobile development,
       backend engineering, databases, APIs, offline-first architecture, and
       CI/CD.
     </p>
+    <p class="mt-4 max-w-2xl text-[1.05rem] text-muted">
+      The MVP backend is built with Python, FastAPI, and PostgreSQL. The
+      mobile and desktop clients are built with Flutter, with native Swift,
+      SwiftUI, and Kotlin integrations where appropriate.
+    </p>
   </main>
+  <Footer />
 </Layout>

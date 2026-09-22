@@ -1,0 +1,27 @@
+---
+const steps = [
+  { number: "01", title: "Add your customers", body: "Create your customer and job information." },
+  { number: "02", title: "Manage the work", body: "Track jobs, photos, notes, quotes, expenses, and invoices." },
+  { number: "03", title: "Get the job done", body: "Use the right device for the task and keep everything synchronized." },
+];
+---
+
+<section id="how-it-works" class="py-20 sm:py-28">
+  <div class="mx-auto max-w-wrap px-6">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <h2 class="text-balance text-[1.9rem] font-semibold tracking-tight text-ink sm:text-[2.4rem]">
+        How it works
+      </h2>
+    </div>
+
+    <div class="mt-14 grid gap-8 sm:grid-cols-3">
+      {steps.map((step, i) => (
+        <div class={`reveal reveal-delay-${i + 1}`}>
+          <p class="text-[13px] font-semibold text-accent">{step.number}</p>
+          <h3 class="mt-2 text-[1.1rem] font-semibold text-ink">{step.title}</h3>
+          <p class="mt-2 text-[0.95rem] text-muted">{step.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

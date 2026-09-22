@@ -1,0 +1,50 @@
+---
+const jobs = [
+  { time: "09:00", name: "Johnson Plumbing", note: "Kitchen repair" },
+  { time: "11:30", name: "Smith Residence", note: "Pipe replacement" },
+  { time: "14:00", name: "Williams HVAC", note: "Maintenance" },
+];
+---
+
+<section class="border-y border-line bg-white py-20 sm:py-28">
+  <div class="mx-auto max-w-wrap px-6">
+    <div class="grid items-center gap-12 sm:grid-cols-2">
+      <div class="reveal order-2 sm:order-1">
+        <h2 class="text-balance text-[1.9rem] font-semibold tracking-tight text-ink sm:text-[2.2rem]">
+          Built for the field.
+        </h2>
+        <p class="mt-4 max-w-md text-[1.05rem] text-muted">
+          Take photos, update job status, record expenses, and capture notes
+          while you're working — no laptop required.
+        </p>
+      </div>
+
+      <div class="reveal reveal-delay-2 order-1 flex justify-center sm:order-2">
+        <div class="w-[220px] rounded-[2rem] border-[8px] border-ink bg-ink p-1.5 shadow-card">
+          <div class="relative overflow-hidden rounded-[1.3rem] bg-white pt-5">
+            <div class="absolute left-1/2 top-1.5 h-4 w-20 -translate-x-1/2 rounded-full bg-ink"></div>
+
+            <div class="px-3.5 pb-4">
+              <p class="text-[13px] font-semibold text-ink">Today's Jobs</p>
+              <div class="mt-2.5 space-y-2">
+                {jobs.map((job) => (
+                  <div class="rounded-xl border border-line p-2.5">
+                    <p class="text-[10px] font-medium text-muted">{job.time}</p>
+                    <p class="mt-0.5 text-[12px] font-semibold text-ink">{job.name}</p>
+                    <p class="text-[10.5px] text-muted">{job.note}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div class="absolute bottom-3 right-3">
+              <span class="flex items-center gap-1 rounded-full bg-accent px-3 py-2 text-[11px] font-semibold text-white shadow-subtle">
+                + New Job
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

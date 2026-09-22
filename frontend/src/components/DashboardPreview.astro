@@ -1,0 +1,116 @@
+---
+const nav = ["Dashboard", "Jobs", "Customers", "Quotes", "Invoices", "Expenses", "Settings"];
+const stats = [
+  { label: "Today's Jobs", value: "4" },
+  { label: "Open Jobs", value: "12" },
+  { label: "Revenue", value: "$4,820" },
+  { label: "Outstanding", value: "$1,250" },
+  { label: "Expenses", value: "$620" },
+];
+const jobs = [
+  { time: "09:00", name: "Johnson Plumbing", status: "In Progress", tone: "bg-accent-soft text-accent" },
+  { time: "11:30", name: "Smith Residence", status: "Scheduled", tone: "bg-black/5 text-muted" },
+  { time: "14:00", name: "Williams HVAC", status: "Scheduled", tone: "bg-black/5 text-muted" },
+];
+---
+
+<section class="py-20 sm:py-28">
+  <div class="mx-auto max-w-wrap px-6">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <h2 class="text-balance text-[1.9rem] font-semibold tracking-tight text-ink sm:text-[2.4rem]">
+        Everything about your business, in one view.
+      </h2>
+      <p class="mt-4 text-[1.05rem] text-muted">
+        A real-time dashboard of jobs, revenue, and outstanding work — the
+        moment you open your Mac.
+      </p>
+    </div>
+
+    <div class="reveal reveal-delay-2 mx-auto mt-14 max-w-4xl overflow-hidden rounded-2xl border border-line bg-white shadow-card">
+      <div class="flex items-center gap-1.5 border-b border-line bg-[#f5f6f8] px-4 py-2.5">
+        <span class="h-3 w-3 rounded-full bg-[#ff5f57]"></span>
+        <span class="h-3 w-3 rounded-full bg-[#febc2e]"></span>
+        <span class="h-3 w-3 rounded-full bg-[#28c840]"></span>
+        <span class="ml-3 text-[12px] font-medium text-muted">SiteMate</span>
+      </div>
+
+      <div class="flex text-left">
+        <aside class="hidden w-44 shrink-0 border-r border-line bg-[#fbfbfc] p-4 sm:block">
+          {nav.map((item, i) => (
+            <div class={`mb-1 flex items-center rounded-lg px-3 py-2 text-[13px] font-medium ${i === 0 ? "bg-accent-soft text-accent" : "text-muted hover:bg-black/[.03]"}`}>
+              {item}
+            </div>
+          ))}
+        </aside>
+
+        <div class="flex-1 p-5 sm:p-7">
+          <p class="text-[15px] font-semibold text-ink">Good morning 👋</p>
+
+          <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
+            {stats.map((s) => (
+              <div class="rounded-xl border border-line bg-white p-3">
+                <p class="text-[11px] text-muted">{s.label}</p>
+                <p class="stat-value mt-1 text-[15px] font-semibold text-ink" data-value={s.value}>0</p>
+              </div>
+            ))}
+          </div>
+
+          <div class="mt-5 rounded-xl border border-line bg-white p-4">
+            <p class="text-[12px] font-semibold text-muted">Today's Jobs</p>
+            <div class="mt-3 space-y-2">
+              {jobs.map((job) => (
+                <div class="flex items-center justify-between rounded-lg border border-line px-3 py-2.5">
+                  <div class="flex items-center gap-3">
+                    <span class="text-[12px] font-medium text-muted">{job.time}</span>
+                    <span class="text-[13px] font-medium text-ink">{job.name}</span>
+                  </div>
+                  <span class={`rounded-full px-2.5 py-1 text-[11px] font-medium ${job.tone}`}>{job.status}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Animate stat numbers once, when the dashboard preview enters the viewport.
+  const values = document.querySelectorAll<HTMLElement>(".stat-value");
+  const parseTarget = (raw: string) => {
+    const isMoney = raw.trim().startsWith("$");
+    const num = parseInt(raw.replace(/[^0-9]/g, ""), 10) || 0;
+    return { num, isMoney };
+  };
+  const format = (n: number, isMoney: boolean) =>
+    isMoney ? `$${n.toLocaleString()}` : `${n}`;
+
+  const animate = (el: HTMLElement) => {
+    const { num, isMoney } = parseTarget(el.dataset.value ?? "0");
+    const duration = 900;
+    const start = performance.now();
+    const step = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = format(Math.round(num * eased), isMoney);
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          values.forEach((v) => animate(v));
+          observer.disconnect();
+        }
+      });
+    },
+    { threshold: 0.4 }
+  );
+
+  const target = document.querySelector(".stat-value")?.closest("section");
+  if (target) observer.observe(target);
+</script>

@@ -1,0 +1,34 @@
+---
+const features = [
+  { title: "Customers", body: "Keep customer information organized in one place.", icon: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z M22 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75" },
+  { title: "Jobs", body: "Track every job from lead to completion.", icon: "M9 11l3 3L22 4 M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" },
+  { title: "Photos", body: "Keep before-and-after job photos attached to the right job.", icon: "M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2Z M12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" },
+  { title: "Quotes", body: "Create professional quotes with line items and totals.", icon: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z M14 2v6h6 M9 15h6 M9 11h3" },
+  { title: "Invoices", body: "Turn completed jobs into invoices and track payment status.", icon: "M2 9V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-4 M2 9h20 M6 15h4" },
+  { title: "Expenses", body: "Track business expenses against your work.", icon: "M12 1v22 M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" },
+];
+---
+
+<section id="features" class="py-20 sm:py-28">
+  <div class="mx-auto max-w-wrap px-6">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <h2 class="text-balance text-[1.9rem] font-semibold tracking-tight text-ink sm:text-[2.4rem]">
+        Everything a field-service business needs.
+      </h2>
+    </div>
+
+    <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {features.map((f, i) => (
+        <div class={`reveal reveal-delay-${(i % 3) + 1} rounded-xl2 border border-line bg-white p-6 shadow-subtle transition-shadow hover:shadow-card`}>
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-accent-soft text-accent">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d={f.icon} />
+            </svg>
+          </div>
+          <h3 class="mt-4 text-[1.05rem] font-semibold text-ink">{f.title}</h3>
+          <p class="mt-2 text-[0.95rem] text-muted">{f.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

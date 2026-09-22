@@ -1,0 +1,34 @@
+---
+const columns = [
+  { label: "Product", href: "/#product" },
+  { label: "Features", href: "/#features" },
+  { label: "Devices", href: "/#devices" },
+  { label: "About", href: "/about" },
+  { label: "Privacy", href: "/privacy" },
+  { label: "Terms", href: "/terms" },
+  { label: "GitHub", href: "https://github.com" },
+];
+---
+
+<footer class="bg-ink py-12 text-white/70">
+  <div class="mx-auto max-w-wrap px-6">
+    <div class="flex flex-wrap items-center justify-between gap-6">
+      <a href="/" class="flex items-center gap-2 text-[15px] font-semibold text-white no-underline">
+        <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-white/10 text-xs font-bold text-white">S</span>
+        SiteMate
+      </a>
+
+      <nav class="flex flex-wrap gap-x-6 gap-y-2" aria-label="Footer">
+        {columns.map((col) => (
+          <a href={col.href} class="text-[13.5px] font-medium text-white/60 hover:text-white">
+            {col.label}
+          </a>
+        ))}
+      </nav>
+    </div>
+
+    <p class="mt-8 border-t border-white/10 pt-6 text-[13px] text-white/40">
+      SiteMate — One business. One workspace. Every device.
+    </p>
+  </div>
+</footer>

@@ -1,0 +1,27 @@
+---
+const badges = ["Flutter", "Python", "FastAPI", "PostgreSQL", "Swift", "SwiftUI", "Kotlin"];
+---
+
+<section class="py-20 sm:py-24">
+  <div class="mx-auto max-w-wrap px-6">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <h2 class="text-balance text-[1.6rem] font-semibold tracking-tight text-ink sm:text-[1.9rem]">
+        Built as a modern cross-platform system.
+      </h2>
+      <p class="mt-4 text-[0.98rem] text-muted">
+        SiteMate is being built as a learning-driven, production-minded
+        project exploring modern cross-platform development, native mobile
+        development, backend engineering, databases, APIs, offline-first
+        architecture, and CI/CD.
+      </p>
+    </div>
+
+    <div class="reveal reveal-delay-1 mt-8 flex flex-wrap items-center justify-center gap-2.5">
+      {badges.map((badge) => (
+        <span class="rounded-full border border-line bg-white px-4 py-1.5 text-[13px] font-medium text-muted">
+          {badge}
+        </span>
+      ))}
+    </div>
+  </div>
+</section>

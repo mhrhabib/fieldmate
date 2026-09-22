@@ -1,0 +1,48 @@
+---
+const cards = [
+  {
+    title: "In the field",
+    body: "Capture jobs, photos, notes, expenses, and customer information from your phone.",
+    icon: "M12 2 3 7l9 5 9-5-9-5Zm-9 10 9 5 9-5M3 17l9 5 9-5",
+  },
+  {
+    title: "At the desk",
+    body: "Manage customers, jobs, quotes, invoices, and business activity from your Mac.",
+    icon: "M4 5h16v10H4z M9 20h6 M12 15v5",
+  },
+  {
+    title: "On the move",
+    body: "Use your Apple Watch for quick job actions without pulling out your phone.",
+    icon: "M8 6h8v12H8z M9 3h6v2H9z M9 19h6v2H9z",
+  },
+];
+---
+
+<section class="py-20 sm:py-28">
+  <div class="mx-auto max-w-wrap px-6">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <h2 class="text-balance text-[1.9rem] font-semibold tracking-tight text-ink sm:text-[2.4rem]">
+        Your work happens everywhere. Your software should too.
+      </h2>
+      <p class="mt-4 text-[1.05rem] text-muted">
+        Field-service professionals constantly switch between phone, tablet,
+        desktop, paper notes, and messaging apps. SiteMate brings those
+        workflows together.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-5 sm:grid-cols-3">
+      {cards.map((card, i) => (
+        <div class={`reveal reveal-delay-${i + 1} rounded-xl2 border border-line bg-white p-6 shadow-subtle transition-shadow hover:shadow-card`}>
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-accent-soft text-accent">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d={card.icon} />
+            </svg>
+          </div>
+          <h3 class="mt-4 text-[1.05rem] font-semibold text-ink">{card.title}</h3>
+          <p class="mt-2 text-[0.95rem] text-muted">{card.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
