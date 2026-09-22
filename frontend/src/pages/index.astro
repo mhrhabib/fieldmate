@@ -1,0 +1,45 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import WaitlistForm from "../components/WaitlistForm.astro";
+
+// Runs on the SERVER at build time (or per-request if you switch this page to
+// SSR later) — never ships to the browser. This is how you pull live data
+// from FastAPI into HTML that search engines see immediately, with zero
+// client-side loading spinner.
+let waitlistCount = 0;
+try {
+  const res = await fetch(`${import.meta.env.PUBLIC_API_URL}/api/stats`);
+  if (res.ok) {
+    const data = await res.json();
+    waitlistCount = data.waitlist_count;
+  }
+} catch {
+  // Backend not running at build time — fall back gracefully rather than
+  // failing the whole build.
+}
+---
+
+<Layout
+  title="SiteMate — One business. One workspace. Every device."
+  description="SiteMate keeps customers, jobs, quotes, invoices, expenses, and field work connected across iPhone, iPad, Mac, and Apple Watch."
+>
+  <Nav />
+
+  <main class="wrap" style="padding:64px 0">
+    <h1 style="font-size:clamp(2rem,5vw,3.2rem);max-width:16ch">
+      Run your field business from anywhere.
+    </h1>
+    <p style="color:var(--muted);max-width:52ch;font-size:1.05rem;margin-top:14px">
+      SiteMate keeps customers, jobs, quotes, invoices, expenses, and field
+      work connected across iPhone, iPad, Mac, and Apple Watch.
+    </p>
+
+    <p style="margin-top:28px;font-weight:600">
+      {waitlistCount} businesses already on the waitlist
+    </p>
+
+    <!-- This is the only part of the page that ships JavaScript. -->
+    <WaitlistForm />
+  </main>
+</Layout>

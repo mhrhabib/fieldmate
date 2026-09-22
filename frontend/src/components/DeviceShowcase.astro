@@ -1,0 +1,100 @@
+---
+// Reusable multi-device mockup: iPhone, iPad, Mac, Apple Watch — all fed by
+// the same underlying SiteMate data, sized to work standalone or stacked.
+---
+
+<div class="relative mx-auto flex max-w-4xl flex-col items-center gap-10">
+  <!-- Mac -->
+  <div class="reveal w-full max-w-2xl">
+    <div class="overflow-hidden rounded-t-xl border border-line bg-white shadow-card">
+      <div class="flex items-center gap-1.5 border-b border-line bg-[#f5f6f8] px-3 py-2">
+        <span class="h-2.5 w-2.5 rounded-full bg-[#ff5f57]"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-[#febc2e]"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-[#28c840]"></span>
+        <span class="ml-3 text-[11px] font-medium text-muted">SiteMate — Mac</span>
+      </div>
+      <div class="flex text-left">
+        <div class="hidden w-32 shrink-0 border-r border-line bg-[#fbfbfc] p-3 sm:block">
+          {["Dashboard", "Jobs", "Customers", "Quotes"].map((item, i) => (
+            <div class={`mb-1 rounded-md px-2 py-1.5 text-[11px] font-medium ${i === 0 ? "bg-accent-soft text-accent" : "text-muted"}`}>
+              {item}
+            </div>
+          ))}
+        </div>
+        <div class="flex-1 p-4">
+          <p class="text-[11px] font-semibold text-ink">Good morning 👋</p>
+          <div class="mt-2 grid grid-cols-3 gap-2">
+            {[["Today", "4"], ["Revenue", "$4,820"], ["Outstanding", "$1,250"]].map(([label, value]) => (
+              <div class="rounded-lg border border-line bg-white p-2">
+                <p class="text-[9px] text-muted">{label}</p>
+                <p class="text-[12px] font-semibold text-ink">{value}</p>
+              </div>
+            ))}
+          </div>
+          <div class="mt-2 rounded-lg border border-line bg-white p-2">
+            <p class="text-[9px] font-semibold text-muted">Today's Jobs</p>
+            <p class="mt-1 text-[10px] text-ink">09:00 · Johnson Plumbing</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mx-auto h-2 w-40 rounded-b-md bg-gradient-to-b from-[#d7dae1] to-[#c3c7d1]"></div>
+    <div class="mx-auto h-1.5 w-56 rounded-b-xl bg-[#c3c7d1]"></div>
+  </div>
+
+  <!-- iPhone / iPad / Watch row -->
+  <div class="reveal reveal-delay-2 flex w-full flex-wrap items-end justify-center gap-8">
+    <!-- iPad -->
+    <div class="w-[220px] rounded-[1.4rem] border-[6px] border-ink bg-ink p-1 shadow-card">
+      <div class="overflow-hidden rounded-[0.9rem] bg-white">
+        <div class="border-b border-line px-2.5 py-1.5 text-[9px] font-semibold text-ink">Jobs</div>
+        <div class="flex">
+          <div class="w-16 border-r border-line p-1.5">
+            {["Open", "Sched.", "Done"].map((t, i) => (
+              <div class={`mb-1 rounded px-1 py-1 text-[7px] font-medium ${i === 0 ? "bg-accent-soft text-accent" : "text-muted"}`}>{t}</div>
+            ))}
+          </div>
+          <div class="flex-1 p-1.5">
+            {["Johnson Plumbing", "Smith Residence", "Williams HVAC"].map((c) => (
+              <div class="mb-1 rounded border border-line p-1">
+                <p class="text-[7px] font-semibold text-ink">{c}</p>
+                <p class="text-[6px] text-muted">In progress</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- iPhone -->
+    <div class="w-[130px] rounded-[1.6rem] border-[6px] border-ink bg-ink p-1 shadow-card">
+      <div class="relative overflow-hidden rounded-[1.1rem] bg-white pt-3">
+        <div class="absolute left-1/2 top-0.5 h-3 w-12 -translate-x-1/2 rounded-full bg-ink"></div>
+        <div class="px-2 pb-2 pt-1">
+          <p class="text-[8px] font-semibold text-ink">Today's Jobs</p>
+          {["09:00 Johnson", "11:30 Smith"].map((j) => (
+            <div class="mt-1 rounded-md border border-line p-1">
+              <p class="text-[7px] text-ink">{j}</p>
+            </div>
+          ))}
+          <div class="mt-1 flex justify-end">
+            <span class="rounded-full bg-accent px-1.5 py-0.5 text-[6px] font-semibold text-white">+ New</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Apple Watch -->
+    <div class="w-[76px] rounded-[1.4rem] border-[5px] border-ink bg-ink p-0.5 shadow-card">
+      <div class="flex aspect-square flex-col items-center justify-center rounded-[1.1rem] bg-black px-2 text-center text-white">
+        <p class="text-[6px] font-bold tracking-wide text-accent">JOHNSON</p>
+        <p class="text-[9px] font-semibold">09:00</p>
+        <span class="mt-1 rounded-full bg-accent px-2 py-0.5 text-[6px] font-semibold">Start</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="reveal reveal-delay-3 rounded-full border border-line bg-white px-4 py-1.5 text-[13px] font-medium text-muted shadow-subtle">
+    One workspace. Every device.
+  </p>
+</div>

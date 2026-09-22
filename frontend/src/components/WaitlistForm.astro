@@ -1,0 +1,44 @@
+<form id="waitlist-form" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:20px">
+  <input type="email" id="waitlist-email" placeholder="you@business.com" required autocomplete="email" />
+  <button class="btn" type="submit">Join the waitlist</button>
+</form>
+<p id="waitlist-msg" style="margin-top:10px;font-size:.9rem;color:var(--muted)"></p>
+
+<script>
+  // This <script> tag is bundled by Astro and shipped ONLY on pages that use
+  // this component — the rest of the static page stays JS-free.
+  const apiUrl = import.meta.env.PUBLIC_API_URL;
+  const form = document.querySelector<HTMLFormElement>("#waitlist-form");
+  const msg = document.querySelector<HTMLParagraphElement>("#waitlist-msg");
+  const button = form?.querySelector("button");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = (document.querySelector<HTMLInputElement>("#waitlist-email"))?.value ?? "";
+    if (!msg || !button) return;
+
+    button.disabled = true;
+    msg.textContent = "Joining…";
+
+    try {
+      const res = await fetch(`${apiUrl}/api/waitlist`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      if (res.status === 201) {
+        msg.textContent = "You're on the list — thanks!";
+        form.reset();
+      } else if (res.status === 409) {
+        msg.textContent = "That email is already on the list.";
+      } else {
+        msg.textContent = "Something went wrong. Try again in a moment.";
+      }
+    } catch {
+      msg.textContent = "Couldn't reach the API. Is it running on " + apiUrl + "?";
+    } finally {
+      button.disabled = false;
+    }
+  });
+</script>

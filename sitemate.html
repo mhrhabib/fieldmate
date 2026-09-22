@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SiteMate — One business. One workspace. Every device.</title>
+<meta name="description" content="SiteMate keeps customers, jobs, quotes, invoices, expenses, and field work connected across iPhone, iPad, Mac, and Apple Watch.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#FAFAFB; --surface:#FFFFFF; --surface-2:#F3F5F9; --line:#E5E8EF; --line-2:#EFF1F6;
+  --text:#0B0F19; --muted:#5B6472; --muted-2:#8A93A3;
+  --accent:#3560E0; --accent-ink:#FFFFFF; --accent-soft:#EAF0FE; --accent-soft-line:#CFDDFB;
+  --success:#12805A; --success-bg:#E2F5EC; --warn-bg:#FFF2CE; --danger:#C23A2E; --danger-bg:#FBE7E5;
+  --c1:#3560E0; --c1-soft:#EAF0FE;
+  --c2:#8347F0; --c2-soft:#F1E9FE;
+  --c3:#0F9E86; --c3-soft:#DFF8F1;
+  --c4:#E08A1E; --c4-soft:#FDF0DC;
+  --c5:#DB2E6E; --c5-soft:#FCE7EF;
+  --c6:#D23B3B; --c6-soft:#FBE6E4;
+  --display:"Space Grotesk",system-ui,sans-serif; --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; --mono:ui-monospace,"SF Mono",Menlo,monospace;
+  --r-sm:8px; --r-md:12px; --r-lg:18px;
+  --shadow:0 1px 2px rgba(15,23,42,.04), 0 8px 24px -12px rgba(15,23,42,.12);
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A0D14; --surface:#12151F; --surface-2:#171B27; --line:#262B3A; --line-2:#1E2230;
+    --text:#EDEFF5; --muted:#9AA3B5; --muted-2:#6E7789;
+    --accent:#6D93FF; --accent-ink:#0A0D14; --accent-soft:#182242; --accent-soft-line:#2C3B6C;
+    --success:#4FCB93; --success-bg:#123324; --warn-bg:#3B2F0C; --danger:#F0776A; --danger-bg:#3A1A17;
+    --c1:#7B9BFF; --c1-soft:#1B2747; --c2:#B79CFF; --c2-soft:#251C41; --c3:#4FD9BE; --c3-soft:#0F2E29;
+    --c4:#F3B65C; --c4-soft:#332409; --c5:#F17BAA; --c5-soft:#3A1729; --c6:#F08B7E; --c6-soft:#38190F;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A0D14; --surface:#12151F; --surface-2:#171B27; --line:#262B3A; --line-2:#1E2230;
+  --text:#EDEFF5; --muted:#9AA3B5; --muted-2:#6E7789;
+  --accent:#6D93FF; --accent-ink:#0A0D14; --accent-soft:#182242; --accent-soft-line:#2C3B6C;
+  --success:#4FCB93; --success-bg:#123324; --warn-bg:#3B2F0C; --danger:#F0776A; --danger-bg:#3A1A17;
+  --c1:#7B9BFF; --c1-soft:#1B2747; --c2:#B79CFF; --c2-soft:#251C41; --c3:#4FD9BE; --c3-soft:#0F2E29;
+  --c4:#F3B65C; --c4-soft:#332409; --c5:#F17BAA; --c5-soft:#3A1729; --c6:#F08B7E; --c6-soft:#38190F;
+}
+html{height:100%;scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 68px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--display);margin:0;letter-spacing:-.02em;line-height:1.12;font-weight:600}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img,svg{display:block;max-width:100%}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.muted{color:var(--muted)}
+.section{padding:96px 0}
+.section.tight{padding:72px 0}
+@media (max-width:720px){.section{padding:64px 0}.section.tight{padding:48px 0}}
+.eyebrow{color:var(--accent);font-weight:600;font-size:.92rem}
+.kicker{color:var(--muted);max-width:52ch;margin-top:14px;font-size:1.05rem}
+.center{text-align:center;margin-left:auto;margin-right:auto}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:600;font-size:.96rem;border:1px solid transparent;white-space:nowrap}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{border-color:var(--line);background:var(--surface);color:var(--text)}
+.btn.ghost:hover{border-color:var(--muted-2)}
+.btn.sm{padding:8px 14px;font-size:.88rem}
+.btn.block{width:100%}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;min-height:66px;gap:16px}
+.brand{display:flex;align-items:center;gap:9px;font-family:var(--display);font-weight:700;font-size:1.15rem}
+.brand .dot{width:9px;height:9px;border-radius:2px;background:linear-gradient(135deg,var(--c1),var(--c2));transform:rotate(45deg)}
+.nav-links{display:flex;gap:28px;list-style:none;margin:0;padding:0}
+.nav-links a{font-size:.94rem;color:var(--muted);font-weight:500}
+.nav-links a:hover{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.nav-signin{font-size:.92rem;font-weight:600;color:var(--muted)}
+.nav-signin:hover{color:var(--text)}
+.burger{display:none;border:1px solid var(--line);border-radius:8px;padding:8px}
+.burger span,.burger span::before,.burger span::after{content:"";display:block;width:18px;height:2px;background:var(--text);position:relative;transition:transform .2s}
+.burger span::before{position:absolute;top:-6px}
+.burger span::after{position:absolute;top:6px}
+.mnav{display:none;border-top:1px solid var(--line);background:var(--surface)}
+.mnav.open{display:block}
+.mnav .wrap{flex-direction:column;align-items:stretch;padding:14px 24px;gap:2px;min-height:0}
+.mnav a{display:block;padding:11px 4px;color:var(--text);font-weight:500;border-bottom:1px solid var(--line-2)}
+@media (max-width:860px){.nav-links{display:none}.nav-right .nav-signin{display:none}.burger{display:inline-flex}}
+
+/* hero */
+.hero{padding:76px 0 28px;text-align:center}
+.hero h1{font-size:clamp(2.4rem,5.6vw,3.9rem);max-width:16ch;margin:0 auto}
+.hero .kicker{font-size:1.14rem;margin:20px auto 0}
+.hero-cta{display:flex;gap:12px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;margin-top:44px;color:var(--muted-2);font-size:.86rem;font-weight:600}
+.hero-tag .ln{width:26px;height:1px;background:var(--line)}
+
+/* device stage */
+.stage{position:relative;max-width:960px;margin:52px auto 0;padding:0 10px 30px}
+.stage::before{content:"";position:absolute;left:8%;top:-8%;width:46%;height:70%;background:radial-gradient(circle,var(--c1) 0%,transparent 68%);opacity:.22;filter:blur(38px);pointer-events:none;z-index:0}
+.stage::after{content:"";position:absolute;right:6%;bottom:-6%;width:40%;height:60%;background:radial-gradient(circle,var(--c2) 0%,transparent 68%);opacity:.2;filter:blur(38px);pointer-events:none;z-index:0}
+.stage-row{position:relative;display:flex;align-items:flex-end;justify-content:center;gap:0;min-height:420px;z-index:1}
+.dev{position:relative;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:22px;overflow:hidden}
+.dev .bezel{padding:10px}
+.dev .screen{background:var(--surface-2);border-radius:14px;overflow:hidden;height:100%}
+.mac{width:min(78vw,560px);border-radius:12px 12px 4px 4px;z-index:1}
+.mac .bezel{padding:12px 12px 0}
+.mac .screen{aspect-ratio:16/10.2;padding:14px;display:flex;flex-direction:column;gap:8px}
+.mac-base{height:14px;background:linear-gradient(var(--surface-2),var(--line));border-radius:0 0 8px 8px;margin:0 -1px}
+.ipad{width:min(38vw,220px);aspect-ratio:3/4;margin:0 -34px 0 -50px;z-index:2;border-radius:20px}
+.ipad .screen{aspect-ratio:auto;height:calc(100% - 20px)}
+.iphone{width:min(24vw,146px);aspect-ratio:9/18.5;z-index:3;border-radius:26px;margin-bottom:-18px}
+.iphone .bezel{padding:7px}
+.iphone .screen{position:relative;height:100%}
+.iphone .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:44%;height:16px;background:var(--surface);border-radius:0 0 10px 10px;z-index:2}
+.watch{position:absolute;right:2%;bottom:6%;width:min(15vw,92px);aspect-ratio:.86;border-radius:28px;z-index:4;box-shadow:var(--shadow)}
+.watch .bezel{padding:7px}
+.watch .crown{position:absolute;right:-4px;top:32%;width:7px;height:16px;background:var(--line);border-radius:2px}
+@media (max-width:640px){.stage-row{min-height:300px}.watch{display:none}.ipad{margin:0 -22px 0 -34px}}
+
+/* mini UI inside device screens */
+.mini{font-size:.62rem;line-height:1.3;color:var(--text)}
+.mini .row{display:flex;justify-content:space-between;align-items:center}
+.mini .side{display:flex;flex-direction:column;gap:6px;width:34%;padding-right:8px;border-right:1px solid var(--line)}
+.mini .side b{font-size:.6rem;color:var(--muted-2);text-transform:none}
+.mini .side i{display:block;font-style:normal;padding:4px 6px;border-radius:6px;color:var(--muted)}
+.mini .side i.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.mini .main{flex:1;padding-left:10px;display:flex;flex-direction:column;gap:7px}
+.mini .stat{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:5px 6px}
+.mini .stat b{display:block;font-size:.78rem;font-family:var(--display)}
+.mini .stat span{color:var(--muted-2);font-size:.55rem}
+.mini .stats4{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.mini .job{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:5px 7px;display:flex;justify-content:space-between;gap:6px}
+.mini .job b{font-size:.62rem}
+.mini .job span{color:var(--muted-2);font-size:.55rem;display:block}
+.mini .pill{font-size:.5rem;font-weight:700;padding:1px 6px;border-radius:999px;background:var(--accent-soft);color:var(--accent);align-self:center}
+.ph-list{display:flex;flex-direction:column;gap:6px;padding:8px}
+.ph-head{font-size:.68rem;font-weight:700;padding:0 8px}
+.ph-job{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px}
+.ph-job b{display:block;font-size:.6rem}
+.ph-job span{color:var(--muted-2);font-size:.53rem}
+.ph-fab{position:absolute;bottom:10px;right:10px;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:6px 9px;font-size:.52rem;font-weight:700}
+.w-face{height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:4px;padding:6px}
+.w-face b{font-size:.62rem}
+.w-face .time{font-family:var(--display);font-size:1rem}
+.w-face span{font-size:.5rem;color:var(--muted-2)}
+.w-btn{margin-top:5px;background:var(--accent);color:var(--accent-ink);border-radius:8px;padding:3px 9px;font-size:.5rem;font-weight:700}
+
+/* problem cards */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:26px;box-shadow:var(--shadow)}
+.card .ic{width:38px;height:38px;border-radius:10px;background:var(--accent-soft);display:grid;place-items:center;margin-bottom:16px}
+.card .ic svg{width:19px;height:19px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card h3{font-size:1.08rem;margin-bottom:8px}
+.card p{color:var(--muted);font-size:.94rem}
+.grid3 .card:nth-child(1) .ic,.grid6 .card:nth-child(6n+1) .ic{background:var(--c1-soft)}
+.grid3 .card:nth-child(1) .ic svg,.grid6 .card:nth-child(6n+1) .ic svg{stroke:var(--c1)}
+.grid3 .card:nth-child(2) .ic,.grid6 .card:nth-child(6n+2) .ic{background:var(--c2-soft)}
+.grid3 .card:nth-child(2) .ic svg,.grid6 .card:nth-child(6n+2) .ic svg{stroke:var(--c2)}
+.grid3 .card:nth-child(3) .ic,.grid6 .card:nth-child(6n+3) .ic{background:var(--c3-soft)}
+.grid3 .card:nth-child(3) .ic svg,.grid6 .card:nth-child(6n+3) .ic svg{stroke:var(--c3)}
+.grid6 .card:nth-child(6n+4) .ic{background:var(--c4-soft)}
+.grid6 .card:nth-child(6n+4) .ic svg{stroke:var(--c4)}
+.grid6 .card:nth-child(6n+5) .ic{background:var(--c5-soft)}
+.grid6 .card:nth-child(6n+5) .ic svg{stroke:var(--c5)}
+.grid6 .card:nth-child(6n+6) .ic{background:var(--c6-soft)}
+.grid6 .card:nth-child(6n+6) .ic svg{stroke:var(--c6)}
+@media (max-width:860px){.grid3{grid-template-columns:1fr}}
+
+/* two-col section */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.split.rev{grid-template-columns:1fr 1fr}
+.split.rev .art{order:2}
+@media (max-width:900px){.split,.split.rev{grid-template-columns:1fr}.split.rev .art{order:0}}
+
+/* dashboard mockup */
+.dash{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden}
+.dash-top{display:flex;align-items:center;gap:8px;padding:11px 16px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.dash-top i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.dash-body{display:grid;grid-template-columns:172px 1fr}
+.dash-side{padding:16px 10px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+.dash-side .row{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px;font-size:.85rem;color:var(--muted);font-weight:500}
+.dash-side .row.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.dash-side .row svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8}
+.dash-main{padding:22px 22px 26px}
+.dash-main h4{font-size:1.15rem;margin-bottom:16px}
+.stat5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:22px}
+.stat-card{background:var(--surface-2);border:1px solid var(--line);border-top:3px solid var(--line);border-radius:10px;padding:12px 13px}
+.stat-card span{display:block;color:var(--muted-2);font-size:.72rem;margin-bottom:4px}
+.stat-card b{font-family:var(--display);font-size:1.3rem}
+.stat-card:nth-child(1){border-top-color:var(--c1)}
+.stat-card:nth-child(1) b{color:var(--c1)}
+.stat-card:nth-child(2){border-top-color:var(--c2)}
+.stat-card:nth-child(2) b{color:var(--c2)}
+.stat-card:nth-child(3){border-top-color:var(--c3)}
+.stat-card:nth-child(3) b{color:var(--c3)}
+.stat-card:nth-child(4){border-top-color:var(--c4)}
+.stat-card:nth-child(4) b{color:var(--c4)}
+.stat-card:nth-child(5){border-top-color:var(--c5)}
+.stat-card:nth-child(5) b{color:var(--c5)}
+.jobs-list h5{font-size:.9rem;color:var(--muted);font-weight:600;margin-bottom:10px}
+.job-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--line-2)}
+.job-row .time{font-family:var(--mono);font-size:.82rem;color:var(--muted-2);width:56px;flex:none}
+.job-row .who{flex:1;font-weight:600;font-size:.92rem}
+.job-row .stpill{font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:999px}
+.stpill.progress{background:var(--warn-bg);color:#8a6900}
+.stpill.scheduled{background:var(--accent-soft);color:var(--accent)}
+@media (max-width:900px){.stat5{grid-template-columns:repeat(2,1fr)}.dash-body{grid-template-columns:1fr}.dash-side{display:none}}
+
+/* lifecycle */
+.lifecycle{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;margin:36px 0 44px}
+.lc-step{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:.86rem;font-weight:600;color:var(--muted)}
+.lc-step.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.lc-arrow{color:var(--muted-2);font-size:.9rem}
+.lc-step:nth-child(1){background:var(--c1-soft);color:var(--c1);border-color:transparent}
+.lc-step:nth-child(3){background:var(--c2-soft);color:var(--c2);border-color:transparent}
+.lc-step:nth-child(5){background:var(--c3-soft);color:var(--c3);border-color:transparent}
+.lc-step:nth-child(7){background:var(--c4-soft);color:var(--c4);border-color:transparent}
+.lc-step:nth-child(9){background:var(--c5-soft);color:var(--c5);border-color:transparent}
+.lc-step:nth-child(11){background:var(--success-bg);color:var(--success);border-color:transparent}
+.lc-step.on{background:var(--c1);color:#fff;border-color:transparent}
+
+/* job details mockup */
+.jobcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:22px}
+.jobcard .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:4px}
+.jobcard h4{font-size:1.2rem}
+.jobcard .cust{color:var(--muted);font-size:.9rem;margin-top:3px}
+.status-chip{font-size:.76rem;font-weight:700;padding:4px 11px;border-radius:999px;background:var(--warn-bg);color:#8a6900;white-space:nowrap}
+.photos3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0}
+.photo{aspect-ratio:4/3;border-radius:10px;background:var(--surface-2);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--muted-2);font-size:.72rem;font-weight:600}
+.photo svg{width:20px;height:20px;stroke:var(--muted-2);fill:none;stroke-width:1.6}
+.photo:nth-child(1){background:var(--c4-soft)}
+.photo:nth-child(1) svg{stroke:var(--c4)}
+.photo:nth-child(2){background:var(--c2-soft)}
+.photo:nth-child(2) svg{stroke:var(--c2)}
+.photo:nth-child(3){background:var(--c3-soft)}
+.photo:nth-child(3) svg{stroke:var(--c3)}
+.jobcard .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+
+/* quote / invoice cards */
+.qi-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:36px}
+.qi-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:22px}
+.qi-card .lbl{font-size:.78rem;color:var(--muted-2);font-weight:700;letter-spacing:.02em}
+.qi-card h4{font-size:1.1rem;margin-top:4px}
+.li{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line-2);font-size:.92rem}
+.li.total{border-bottom:0;border-top:1px solid var(--line);margin-top:4px;padding-top:12px;font-weight:700;font-family:var(--display);font-size:1.05rem}
+.status-row{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+.tag{font-size:.78rem;font-weight:700;padding:4px 11px;border-radius:999px}
+.tag.accepted{background:var(--success-bg);color:var(--success)}
+.tag.unpaid{background:var(--danger-bg);color:var(--danger)}
+@media (max-width:760px){.qi-grid{grid-template-columns:1fr}}
+
+/* phone / watch sections reuse .stage-row via smaller variant */
+.solo-stage{display:flex;justify-content:center;padding:20px 0}
+
+/* multi-device diagram */
+.diagram{display:flex;flex-direction:column;align-items:center;gap:10px;margin:8px auto 0;max-width:360px}
+.dnode{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 18px;font-weight:600;font-size:.92rem;box-shadow:var(--shadow)}
+.dnode.cloud{background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;border-color:transparent}
+.dline{width:1px;height:20px;background:var(--line)}
+.dring{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.dring .dnode:nth-child(1){background:var(--c1-soft);color:var(--c1);border-color:transparent}
+.dring .dnode:nth-child(2){background:var(--c2-soft);color:var(--c2);border-color:transparent}
+.dring .dnode:nth-child(3){background:var(--c3-soft);color:var(--c3);border-color:transparent}
+.diagram .dnode:first-child{background:var(--c4-soft);color:var(--c4);border-color:transparent}
+
+/* features grid */
+.grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+@media (max-width:860px){.grid6{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.grid6{grid-template-columns:1fr}}
+
+/* offline flow */
+.flow{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:36px}
+.flow .f{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-size:.88rem;font-weight:600;display:flex;align-items:center;gap:8px}
+.flow .f.done{background:var(--success-bg);color:var(--success);border-color:transparent}
+.flow .arr{color:var(--muted-2)}
+.flow .f:nth-child(1){background:var(--c6-soft);color:var(--c6);border-color:transparent}
+.flow .f:nth-child(3){background:var(--c4-soft);color:var(--c4);border-color:transparent}
+.flow .f:nth-child(5){background:var(--c1-soft);color:var(--c1);border-color:transparent}
+
+/* tech badges */
+.badges{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:28px}
+.badge{border:1px solid transparent;background:var(--surface-2);border-radius:999px;padding:8px 16px;font-size:.86rem;font-weight:600;font-family:var(--mono);color:var(--muted)}
+.badge.b-flutter{background:#E3F1FF;color:#0468D7}
+.badge.b-python{background:#FFF3D6;color:#8A6D00}
+.badge.b-fastapi{background:var(--c3-soft);color:var(--c3)}
+.badge.b-postgres{background:#E7ECFB;color:#33608F}
+.badge.b-swift{background:#FFE6D9;color:#C1531B}
+.badge.b-swiftui{background:var(--c5-soft);color:var(--c5)}
+.badge.b-kotlin{background:var(--c2-soft);color:var(--c2)}
+:root:not([data-theme="light"]) .badge,:root[data-theme="dark"] .badge{filter:brightness(1.05)}
+
+/* how it works */
+.steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:36px;counter-reset:st}
+.step{counter-increment:st}
+.step .num{font-family:var(--display);font-size:.85rem;color:var(--accent);font-weight:700;margin-bottom:10px}
+.step h3{font-size:1.1rem;margin-bottom:8px}
+.step p{color:var(--muted);font-size:.93rem}
+@media (max-width:860px){.steps3{grid-template-columns:1fr}}
+
+/* customer demo callout */
+.callout{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:30px;display:flex;gap:26px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.callout .txt{max-width:52ch}
+.callout h3{font-size:1.25rem;margin-bottom:8px}
+.callout p{color:var(--muted);font-size:.95rem}
+
+/* cta */
+.cta-final{text-align:center;background:linear-gradient(135deg,#1B2E86 0%,#3560E0 45%,#8347F0 100%);color:#fff;border-radius:24px;margin:0 24px;padding:70px 24px;position:relative;overflow:hidden}
+.cta-final::before{content:"";position:absolute;inset:-40%;background:radial-gradient(circle at 25% 20%,rgba(255,255,255,.16),transparent 55%),radial-gradient(circle at 80% 85%,rgba(255,255,255,.14),transparent 50%);pointer-events:none}
+.cta-final h2,.cta-final *{position:relative}
+.cta-final h2{font-size:clamp(1.9rem,4.4vw,2.7rem);max-width:18ch;margin:0 auto}
+.cta-final .muted2{color:rgba(255,255,255,.78);margin-top:14px}
+.cta-final .hero-cta{margin-top:28px}
+.cta-final .btn.ghost{background:transparent;border-color:rgba(255,255,255,.4);color:#fff}
+.cta-final .btn.primary{background:#fff;color:#1B2E86}
+
+/* footer */
+footer{padding:56px 0 40px}
+.foot-top{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-bottom:26px;border-bottom:1px solid var(--line)}
+.foot-links{display:flex;gap:22px;flex-wrap:wrap;list-style:none;padding:0;margin:0}
+.foot-links a{color:var(--muted);font-size:.92rem}
+.foot-links a:hover{color:var(--text)}
+.foot-bottom{padding-top:22px;color:var(--muted-2);font-size:.85rem;text-align:center}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(16px);background:var(--text);color:var(--bg);padding:11px 18px;border-radius:10px;font-weight:600;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:80;max-width:calc(100% - 32px)}
+.toast.show{opacity:1;transform:translateX(-50%)}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="#top" class="brand"><span class="dot" aria-hidden="true"></span>SiteMate</a>
+    <ul class="nav-links">
+      <li><a href="#product">Product</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#devices">Devices</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#" class="nav-signin" id="signin">Sign In</a>
+      <a href="#cta" class="btn primary sm">Get Started</a>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="mnav" aria-label="Menu"><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="mnav" id="mnav">
+  <div class="wrap">
+    <a href="#product">Product</a>
+    <a href="#features">Features</a>
+    <a href="#how">How it works</a>
+    <a href="#devices">Devices</a>
+    <a href="#about">About</a>
+    <a href="#" id="signin-m">Sign In</a>
+  </div>
+</div>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero wrap" id="product">
+  <p class="eyebrow">SITEMATE · FIELD SERVICE OS</p>
+  <h1>Run your field business from anywhere.</h1>
+  <p class="kicker center">SiteMate keeps customers, jobs, quotes, invoices, expenses, and field work connected across iPhone, iPad, Mac, and Apple Watch.</p>
+  <div class="hero-cta">
+    <a href="#cta" class="btn primary">Get Started</a>
+    <a href="#lifecycle" class="btn ghost">See how it works</a>
+  </div>
+
+  <div class="stage reveal">
+    <div class="stage-row">
+      <div class="dev mac">
+        <div class="bezel"><div class="screen mini">
+          <div class="row" style="margin-bottom:6px"><b style="font-family:var(--display);font-size:.66rem">SiteMate</b><i style="color:var(--muted-2)">Mac</i></div>
+          <div class="row" style="align-items:stretch;flex:1;gap:0">
+            <div class="side"><b>MENU</b><i class="on">Dashboard</i><i>Jobs</i><i>Customers</i><i>Invoices</i></div>
+            <div class="main">
+              <div class="stats4"><div class="stat"><b>4</b><span>Today</span></div><div class="stat"><b>12</b><span>Open</span></div><div class="stat"><b>$4.8k</b><span>Revenue</span></div></div>
+              <div class="job"><div><b>Johnson Plumbing</b><span>09:00</span></div><span class="pill">Live</span></div>
+              <div class="job"><div><b>Smith Residence</b><span>11:30</span></div></div>
+            </div>
+          </div>
+        </div></div>
+        <div class="mac-base"></div>
+      </div>
+      <div class="dev ipad">
+        <div class="bezel"><div class="screen mini" style="flex-direction:column;padding:8px">
+          <b style="font-family:var(--display);font-size:.62rem;margin-bottom:6px">Jobs</b>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <div class="job"><div><b>Williams HVAC</b><span>14:00</span></div></div>
+            <div class="job"><div><b>Diaz residence</b><span>16:00</span></div></div>
+            <div class="job"><div><b>Corner Cafe</b><span>17:30</span></div></div>
+          </div>
+        </div></div>
+      </div>
+      <div class="dev iphone">
+        <div class="bezel"><div class="screen">
+          <div class="notch"></div>
+          <div class="ph-list" style="padding-top:14px">
+            <div class="ph-head">Today's Jobs</div>
+            <div class="ph-job"><b>09:00 Johnson Plumbing</b><span>Kitchen repair</span></div>
+            <div class="ph-job"><b>11:30 Smith Residence</b><span>Pipe replacement</span></div>
+          </div>
+          <div class="ph-fab">+ New Job</div>
+        </div></div>
+      </div>
+      <div class="dev watch">
+        <div class="crown"></div>
+        <div class="bezel"><div class="screen w-face">
+          <span>JOHNSON</span><b class="time">09:00</b><span>Kitchen repair</span>
+          <div class="w-btn">Start Job</div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-tag"><span class="ln"></span>One workspace. Every device.<span class="ln"></span></div>
+</section>
+
+<!-- PROBLEM -->
+<section class="section tight" id="problem">
+  <div class="wrap center reveal" style="max-width:640px">
+    <h2 style="font-size:clamp(1.7rem,3.4vw,2.3rem)">Your work happens everywhere. Your software should too.</h2>
+    <p class="kicker center">Field-service pros switch constantly between a phone, a tablet, a desktop, paper notes, and messaging apps. SiteMate brings those workflows together into one connected system.</p>
+  </div>
+  <div class="wrap">
+    <div class="grid3 reveal">
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 4l16 16M8 3v3M16 3v3M3 8h18M6 12h.01M10 12h.01M14 12h.01"/></svg></div><h3>In the field</h3><p>Capture jobs, photos, notes, expenses, and customer information from your phone.</p></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 20h8M12 17v3"/></svg></div><h3>At the desk</h3><p>Manage customers, jobs, quotes, invoices, and business activity from your Mac.</p></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="4"/><path d="M11 18h2"/></svg></div><h3>On the move</h3><p>Use your Apple Watch for quick job actions without pulling out your phone.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="section" id="dashboard">
+  <div class="wrap">
+    <p class="eyebrow center" style="text-align:center">PRODUCT</p>
+    <h2 class="center" style="font-size:clamp(1.8rem,3.6vw,2.5rem);max-width:24ch;text-align:center;margin:10px auto 0">Everything about your business, in one dashboard.</h2>
+    <div class="dash reveal" style="margin-top:40px">
+      <div class="dash-top"><i></i><i></i><i></i></div>
+      <div class="dash-body">
+        <div class="dash-side">
+          <div class="row on"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</div>
+          <div class="row"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 9h16"/></svg>Jobs</div>
+          <div class="row"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/></svg>Customers</div>
+          <div class="row"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M9 12h6M9 16h6"/></svg>Quotes</div>
+          <div class="row"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h5"/></svg>Invoices</div>
+          <div class="row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>Expenses</div>
+          <div class="row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.6-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14 3h-4l-.6 2.6a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.6A7 7 0 0 0 5 12"/></svg>Settings</div>
+        </div>
+        <div class="dash-main">
+          <h4>Good morning 👋</h4>
+          <div class="stat5">
+            <div class="stat-card"><span>Today's Jobs</span><b class="cu" data-to="4">0</b></div>
+            <div class="stat-card"><span>Open Jobs</span><b class="cu" data-to="12">0</b></div>
+            <div class="stat-card"><span>Revenue</span><b class="cu" data-to="4820" data-pre="$">$0</b></div>
+            <div class="stat-card"><span>Outstanding</span><b class="cu" data-to="1250" data-pre="$">$0</b></div>
+            <div class="stat-card"><span>Expenses</span><b class="cu" data-to="620" data-pre="$">$0</b></div>
+          </div>
+          <div class="jobs-list">
+            <h5>Today's Jobs</h5>
+            <div class="job-row"><span class="time">09:00</span><span class="who">Johnson Plumbing</span><span class="stpill progress">In Progress</span></div>
+            <div class="job-row"><span class="time">11:30</span><span class="who">Smith Residence</span><span class="stpill scheduled">Scheduled</span></div>
+            <div class="job-row"><span class="time">14:00</span><span class="who">Williams HVAC</span><span class="stpill scheduled">Scheduled</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOB MANAGEMENT -->
+<section class="section" id="jobs">
+  <div class="wrap">
+    <h2 class="center" style="font-size:clamp(1.8rem,3.6vw,2.5rem);text-align:center">From the first call to the final invoice.</h2>
+    <p class="kicker center" style="margin-left:auto;margin-right:auto;text-align:center">Create a customer, schedule a job, capture photos and notes, create a quote, complete the work, and send an invoice.</p>
+    <div class="lifecycle reveal" id="lifecycle">
+      <span class="lc-step on">Lead</span><span class="lc-arrow">→</span>
+      <span class="lc-step">Scheduled</span><span class="lc-arrow">→</span>
+      <span class="lc-step">In Progress</span><span class="lc-arrow">→</span>
+      <span class="lc-step">Completed</span><span class="lc-arrow">→</span>
+      <span class="lc-step">Invoiced</span><span class="lc-arrow">→</span>
+      <span class="lc-step">Paid</span>
+    </div>
+    <div class="jobcard reveal" style="max-width:640px;margin:0 auto">
+      <div class="top"><div><h4>Kitchen Pipe Replacement</h4><p class="cust">John Smith</p></div><span class="status-chip">In Progress</span></div>
+      <div class="photos3">
+        <div class="photo"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6l1.5-3h5L16 6"/><circle cx="12" cy="13" r="3.2"/></svg>Before</div>
+        <div class="photo"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6l1.5-3h5L16 6"/><circle cx="12" cy="13" r="3.2"/></svg>During</div>
+        <div class="photo"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6l1.5-3h5L16 6"/><circle cx="12" cy="13" r="3.2"/></svg>After</div>
+      </div>
+      <div class="acts">
+        <button class="btn ghost sm" type="button">Start Job</button>
+        <button class="btn ghost sm" type="button">Add Note</button>
+        <button class="btn ghost sm" type="button">Add Expense</button>
+        <button class="btn primary sm" type="button">Complete Job</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTES & INVOICES -->
+<section class="section" id="quotes">
+  <div class="wrap">
+    <h2 class="center" style="font-size:clamp(1.8rem,3.6vw,2.5rem);text-align:center">Turn completed work into revenue.</h2>
+    <div class="qi-grid reveal">
+      <div class="qi-card">
+        <span class="lbl">QUOTE</span>
+        <h4>Kitchen Pipe Replacement</h4>
+        <div class="li"><span>Labor</span><span>$450</span></div>
+        <div class="li"><span>Materials</span><span>$280</span></div>
+        <div class="li"><span>Tax</span><span>$73</span></div>
+        <div class="li total"><span>Total</span><span>$803</span></div>
+        <div class="status-row"><span class="muted" style="font-size:.85rem">Sent to John Smith</span><span class="tag accepted">Accepted</span></div>
+      </div>
+      <div class="qi-card">
+        <span class="lbl">INVOICE #1048</span>
+        <h4>John Smith</h4>
+        <div class="li"><span>Amount due</span><span>$803</span></div>
+        <div class="li total"><span>Total</span><span>$803</span></div>
+        <div class="status-row"><span class="tag unpaid">Unpaid</span><button class="btn primary sm" type="button" id="send-inv">Send Invoice</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOBILE -->
+<section class="section" id="devices">
+  <div class="wrap split">
+    <div class="reveal">
+      <p class="eyebrow">MOBILE EXPERIENCE</p>
+      <h2 style="font-size:clamp(1.8rem,3.4vw,2.4rem);margin-top:10px">Built for the field.</h2>
+      <p class="kicker">Take photos, update job status, record expenses, and capture notes while you're working — no laptop required.</p>
+    </div>
+    <div class="art reveal solo-stage">
+      <div class="dev iphone" style="width:min(56vw,200px)">
+        <div class="bezel"><div class="screen">
+          <div class="notch"></div>
+          <div class="ph-list" style="padding-top:18px">
+            <div class="ph-head">Today's Jobs</div>
+            <div class="ph-job"><b>09:00 Johnson Plumbing</b><span>Kitchen repair</span></div>
+            <div class="ph-job"><b>11:30 Smith Residence</b><span>Pipe replacement</span></div>
+            <div class="ph-job"><b>14:00 Williams HVAC</b><span>Maintenance</span></div>
+          </div>
+          <div class="ph-fab">+ New Job</div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WATCH -->
+<section class="section tight">
+  <div class="wrap split rev">
+    <div class="reveal">
+      <p class="eyebrow">APPLE WATCH</p>
+      <h2 style="font-size:clamp(1.8rem,3.4vw,2.4rem);margin-top:10px">Your most important actions, one tap away.</h2>
+      <p class="kicker">SiteMate Watch is designed for quick actions, not complicated workflows.</p>
+    </div>
+    <div class="art reveal solo-stage" style="gap:24px">
+      <div class="dev watch" style="position:static;width:120px">
+        <div class="crown"></div>
+        <div class="bezel"><div class="screen w-face">
+          <span>JOHNSON</span><b class="time">09:00</b><span>Kitchen repair</span>
+          <div class="w-btn">Start Job</div>
+        </div></div>
+      </div>
+      <div class="dev watch" style="position:static;width:120px">
+        <div class="crown"></div>
+        <div class="bezel"><div class="screen w-face">
+          <span>JOB IN PROGRESS</span><b class="time">01:24:38</b>
+          <div style="display:flex;gap:5px;margin-top:5px"><span class="w-btn" style="background:var(--surface);color:var(--text);border:1px solid var(--line)">Pause</span><span class="w-btn">Complete</span></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MULTI DEVICE -->
+<section class="section" id="multidevice">
+  <div class="wrap center reveal" style="max-width:600px">
+    <h2 style="font-size:clamp(1.8rem,3.4vw,2.4rem)">Your data follows your work.</h2>
+    <p class="kicker center">Start a job on your iPhone. Update it from your Apple Watch. Review the details on your iPad. Finish the invoice from your Mac. Everything stays connected.</p>
+    <div class="diagram">
+      <div class="dnode">Mac</div>
+      <div class="dline"></div>
+      <div class="dnode cloud">SiteMate Cloud</div>
+      <div class="dline"></div>
+      <div class="dring">
+        <div class="dnode">iPhone</div><div class="dnode">iPad</div><div class="dnode">Apple Watch</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div class="wrap">
+    <p class="eyebrow center" style="text-align:center">FEATURES</p>
+    <h2 class="center" style="font-size:clamp(1.8rem,3.4vw,2.4rem);text-align:center;margin-top:10px">Everything the job needs.</h2>
+    <div class="grid6 reveal">
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-4 3-6.5 7-6.5s7 2.5 7 6.5"/></svg></div><h3>Customers</h3><p>Keep customer information organized in one place.</p></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div><h3>Jobs</h3><p>Track every job from lead to completion.</p></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6l1.5-3h5L16 6"/><circle cx="12" cy="13" r="3.2"/></svg></div><h3>Photos</h3><p>Keep before-and-after job photos attached to the right job.</p></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M9 12h6M9 16h6"/></svg></div><h3>Quotes</h3><p>Create professional quotes with line items and totals.</p></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h5"/></svg></div><h3>Invoices</h3><p>Turn completed jobs into invoices and track payment status.</p></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M16 13h2M3 10h18"/></svg></div><h3>Expenses</h3><p>Track business expenses against your work.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFLINE -->
+<section class="section tight">
+  <div class="wrap center reveal" style="max-width:560px">
+    <h2 style="font-size:clamp(1.8rem,3.4vw,2.4rem)">Work even when the signal doesn't.</h2>
+    <p class="kicker center">SiteMate is designed with field work in mind. Important information can remain available when connectivity is limited, and synchronizes when you're back online.</p>
+    <div class="flow">
+      <div class="f">Offline</div><span class="arr">→</span>
+      <div class="f">Local changes</div><span class="arr">→</span>
+      <div class="f">Connection restored</div><span class="arr">→</span>
+      <div class="f done">Sync complete</div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGY -->
+<section class="section tight" id="about">
+  <div class="wrap center reveal" style="max-width:600px">
+    <p class="eyebrow">ENGINEERING NOTES</p>
+    <h2 style="font-size:clamp(1.6rem,3vw,2.1rem);margin-top:10px">Built as a modern cross-platform system.</h2>
+    <p class="kicker center">SiteMate is being built as a learning-driven, production-minded project exploring modern cross-platform development, native mobile development, backend engineering, databases, APIs, offline-first architecture, and CI/CD.</p>
+    <div class="badges">
+      <span class="badge b-flutter">Flutter</span><span class="badge b-python">Python</span><span class="badge b-fastapi">FastAPI</span><span class="badge b-postgres">PostgreSQL</span><span class="badge b-swift">Swift</span><span class="badge b-swiftui">SwiftUI</span><span class="badge b-kotlin">Kotlin</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <div class="wrap">
+    <h2 class="center" style="font-size:clamp(1.8rem,3.4vw,2.4rem);text-align:center">How it works</h2>
+    <div class="steps3 reveal">
+      <div class="step"><div class="num">01</div><h3>Add your customers</h3><p>Create your customer and job information.</p></div>
+      <div class="step"><div class="num">02</div><h3>Manage the work</h3><p>Track jobs, photos, notes, quotes, expenses, and invoices.</p></div>
+      <div class="step"><div class="num">03</div><h3>Get the job done</h3><p>Use the right device for the task and keep everything synchronized.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CUSTOMER BOOKING CALLOUT -->
+<section class="section tight">
+  <div class="wrap">
+    <div class="callout reveal">
+      <div class="txt">
+        <p class="eyebrow">CUSTOMER-FACING BOOKING</p>
+        <h3>Your customers get an online booking page too.</h3>
+        <p>SiteMate can power a booking site for your business, so customers can find your services and book a real opening without calling in. Here's a live example built on the same idea: Dovetail Home Services.</p>
+      </div>
+      <a class="btn primary" href="https://claude.ai/artifact/LZ3Yef2Foz2CcXLUcNJCVV" target="_blank" rel="noopener">See the customer booking demo →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="section" id="cta">
+  <div class="cta-final reveal">
+    <h2>Your work doesn't happen on one screen.<br>Neither should your software.</h2>
+    <p class="muted2">Free while SiteMate is in early access.</p>
+    <div class="hero-cta">
+      <button class="btn primary" type="button" id="get-started">Get Started</button>
+      <a class="btn ghost" href="#dashboard">Explore SiteMate</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <a href="#top" class="brand"><span class="dot" aria-hidden="true"></span>SiteMate</a>
+      <ul class="foot-links">
+        <li><a href="#product">Product</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#devices">Devices</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#" id="priv">Privacy</a></li>
+        <li><a href="#" id="terms">Terms</a></li>
+        <li><a href="#" id="gh">GitHub</a></li>
+      </ul>
+    </div>
+    <p class="foot-bottom">SiteMate — One business. One workspace. Every device.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+"use strict";
+function $(s,r){return (r||document).querySelector(s);}
+function $all(s,r){return [].slice.call((r||document).querySelectorAll(s));}
+
+/* toast */
+var tt,toastEl=$("#toast");
+function toast(msg){toastEl.textContent=msg;toastEl.classList.add("show");clearTimeout(tt);tt=setTimeout(function(){toastEl.classList.remove("show");},2800);}
+
+/* mobile nav */
+var burger=$("#burger"),mnav=$("#mnav");
+burger.addEventListener("click",function(){
+  var open=!mnav.classList.contains("open");
+  mnav.classList.toggle("open",open);
+  burger.setAttribute("aria-expanded",String(open));
+});
+$all(".mnav a").forEach(function(a){a.addEventListener("click",function(){mnav.classList.remove("open");burger.setAttribute("aria-expanded","false");});});
+
+/* demo-only links */
+["#signin","#signin-m","#priv","#terms","#gh"].forEach(function(sel){
+  var el=$(sel); if(!el)return;
+  el.addEventListener("click",function(ev){ev.preventDefault();toast("This is a demo — that page isn't wired up yet.");});
+});
+$("#get-started").addEventListener("click",function(){toast("Thanks for your interest — early access signup isn't wired up in this demo.");});
+$("#send-inv").addEventListener("click",function(){toast("Invoice sent (demo only).");});
+
+/* reveal on scroll */
+if("IntersectionObserver" in window){
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});
+  },{threshold:.18});
+  $all(".reveal").forEach(function(el){io.observe(el);});
+
+  var counted=false;
+  var dash=$("#dashboard");
+  if(dash){
+    var io2=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting&&!counted){
+          counted=true;
+          $all(".cu").forEach(function(el){
+            var to=parseInt(el.dataset.to,10),pre=el.dataset.pre||"",start=performance.now(),dur=900;
+            function step(now){
+              var p=Math.min(1,(now-start)/dur),eased=1-Math.pow(1-p,3);
+              el.textContent=pre+Math.round(to*eased).toLocaleString("en-US");
+              if(p<1)requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+          });
+          io2.unobserve(dash);
+        }
+      });
+    },{threshold:.4});
+    io2.observe(dash);
+  }
+} else {
+  $all(".reveal").forEach(function(el){el.classList.add("in");});
+  $all(".cu").forEach(function(el){el.textContent=(el.dataset.pre||"")+Number(el.dataset.to).toLocaleString("en-US");});
+}
+})();
+</script>
+</body>
+</html>
